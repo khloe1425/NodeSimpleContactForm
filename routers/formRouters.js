@@ -4,7 +4,6 @@ const { Form } = require("../models")
 formRouter.get("/", async (req, res, next) => {
     try {
         let result = await Form.findAll();
-        console.log(result)
         res.status(200).send(result);
     } catch (error) {
         next({})
@@ -14,7 +13,6 @@ formRouter.get("/", async (req, res, next) => {
 //get specific form by id
 formRouter.get("/:id", async (req, res, next) => {
     try {
-        console.log(req);
         let result = await Form.findByPk(req.params.id)
         if (result) {
             res.status(200).send(result);
@@ -28,10 +26,8 @@ formRouter.get("/:id", async (req, res, next) => {
 })
 // add new form
 formRouter.post("/", async (req, res, next) => {
-    console.log(req.body);
     try {
         await Form.create(req.body).then((newform) => {
-            console.log(newform);
         }).then(() => {
             res.status(200).send("success");
         })
@@ -41,7 +37,7 @@ formRouter.post("/", async (req, res, next) => {
 })
 // edit exsist form
 formRouter.put("/", async (req, res, next) => {
-    console.log(req.body);
+
     try {
         let formInsctance = await Form.findByPk(req.body.formId)
         if (formInsctance) {
@@ -58,7 +54,7 @@ formRouter.put("/", async (req, res, next) => {
 })
 // delete form
 formRouter.delete("/:id", async (req, res, next) => {
-    console.log(req.params.id);
+
     try {
         let rowEffect = await Form.destroy({
             where: {
